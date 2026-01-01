@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>eCommerce Dashboard | Snow UI Kit</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+  <h2>Kit</h2>
+  <nav>
+    <a href="index.html">Default</a>
+    <a href="ecommerce.html" class="active">eCommerce</a>
+    <a href="orders.html">Order List</a>
+  </nav>
+</aside>
+
+<!-- Header -->
+<header class="header">
+  <h3>eCommerce Dashboard</h3>
+  <button id="theme-toggle">🌙</button>
+</header>
+
+<!-- Main Content -->
+<main class="main">
+  <!-- Stats Cards -->
+  <div class="cards">
+    <div class="card">
+      <p>Customers</p>
+      <h2>3,781</h2>
+      <span class="trend up">↗ +11.01%</span>
+    </div>
+    <div class="card">
+      <p>Orders</p>
+      <h2>1,219</h2>
+      <span class="trend down">↘ -0.03%</span>
+    </div>
+    <div class="card">
+      <p>Revenue</p>
+      <h2>$695</h2>
+      <span class="trend up">↗ +15.03%</span>
+    </div>
+    <div class="card">
+      <p>Growth</p>
+      <h2>30.1%</h2>
+      <span class="trend up">↗ +6.08%</span>
+    </div>
+  </div>
+
+  <!-- Projections Chart -->
+  <div class="box">
+    <h4>Projections vs Actuals</h4>
+    <canvas id="projectionsChart" width="800" height="300"></canvas>
+  </div>
+
+  <!-- Two Column Layout -->
+  <div class="grid-2">
+    <!-- Top Products -->
+    <div class="box">
+      <h4>Top Selling Products</h4>
+      <ul>
+        <li>ASOS Ridley High Waist — <strong>$6,518</strong></li>
+        <li>Marco Lightweight Shirt — <strong>$4,754</strong></li>
+        <li>Half Sleeve Shirt — <strong>$2,559</strong></li>
+        <li>Lightweight Jacket — <strong>$3,680</strong></li>
+      </ul>
+    </div>
+
+    <!-- Revenue by Location -->
+    <div class="box">
+      <h4>Revenue by Location</h4>
+      <ul>
+        <li>New York — <strong>72K</strong></li>
+        <li>San Francisco — <strong>39K</strong></li>
+        <li>Sydney — <strong>25K</strong></li>
+        <li>Singapore — <strong>61K</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Sales Overview -->
+  <div class="box">
+    <h4>Total Sales Overview</h4>
+    <canvas id="salesChart" width="400" height="300"></canvas>
+  </div>
+</main>
+
+<!-- Chart.js Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
+<!-- Theme Toggle Script -->
+<script src="../theme/theme.js"></script>
+
+<!-- Chart Initialization -->
+<script>
+  function getChartColors() {
+    const isDark = document.body.classList.contains('dark');
+    return {
+      gridColor: isDark ? '#374151' : '#e5e7eb',
+      textColor: isDark ? '#9ca3af' : '#6b7280'
+    };
+  }
+
+  // Projections Bar Chart
+  const projectionsCtx = document.getElementById('projectionsChart');
+  let projectionsChart = new Chart(projectionsCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+      datasets: [{
+        label: 'Projections',
+        data: [25, 60, 45, 70, 55, 85],
+        backgroundColor: '#6366f1',
+        borderRadius: 8
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false
+        }
+      },
+      scales: {
+        x: {
+          grid: {
+            display: false
+          },
+          ticks: {
+            color: getChartColors().textColor
+          }
+        },
+        y: {
+          grid: {
+            color: getChartColors().gridColor
+          },
+          ticks: {
+            color: getChartColors().textColor
+          }
+        }
+      }
+    }
+  });
+
+  // Sales Pie Chart
+  const salesCtx = document.getElementById('salesChart');
+  let salesChart = new Chart(salesCtx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Direct Sales', 'Affiliate Sales'],
+      datasets: [{
+        data: [300.56, 135.18],
+        backgroundColor: ['#6366f1', '#1f2937'],
+        borderWidth: 0
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            usePointStyle: true,
+            padding: 20
+          }
+        }
+      }
+    }
+  });
+
+  // Update charts on theme toggle
+  const originalToggle = window.toggleTheme;
+  window.toggleTheme = function() {
+    originalToggle();
+    const colors = getChartColors();
+    
+    projectionsChart.options.scales.x.ticks.color = colors.textColor;
+    projectionsChart.options.scales.y.ticks.color = colors.textColor;
+    projectionsChart.options.scales.y.grid.color = colors.gridColor;
+    projectionsChart.update();
+  };
+</script>
+
+</body>
+</html>

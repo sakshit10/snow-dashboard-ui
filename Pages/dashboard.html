@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Default Dashboard | Snow UI Kit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+    <aside class="sidebar">
+        <h2>SnowUI</h2>
+        
+        <nav>
+            <div class="nav-section">
+                <div class="nav-label">Favorites</div>
+                <a href="#" class="nav-link">Overview</a>
+                <a href="#" class="nav-link">Projects</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-label">Dashboards</div>
+                <a href="index.html" class="nav-link active">Default</a>
+                <a href="ecommerce.html" class="nav-link">eCommerce</a>
+                <a href="#" class="nav-link">Projects</a>
+                <a href="#" class="nav-link">Online Courses</a>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-label">Pages</div>
+                <a href="#" class="nav-link">User Profile</a>
+                <a href="orders.html" class="nav-link">Order List</a>
+                <a href="#" class="nav-link">Account</a>
+                <a href="#" class="nav-link">Corporate</a>
+                <a href="#" class="nav-link">Blog</a>
+                <a href="#" class="nav-link">Social</a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <h2>Default</h2>
+        </div>
+        <div class="header-right">
+            <button class="theme-toggle">🌙</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Views</div>
+                <div class="stat-value">721K</div>
+                <span class="stat-trend positive">↗ +11.01%</span>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Visits</div>
+                <div class="stat-value">367K</div>
+                <span class="stat-trend negative">↘ -0.03%</span>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">New Users</div>
+                <div class="stat-value">1,156</div>
+                <span class="stat-trend positive">↗ +15.03%</span>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Active Users</div>
+                <div class="stat-value">239K</div>
+                <span class="stat-trend positive">↗ +6.08%</span>
+            </div>
+        </div>
+
+        <!-- Revenue Chart -->
+        <div class="content-box">
+            <div class="box-title">Total Users</div>
+            <div class="chart-wrapper">
+                <canvas id="userChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Two Column Section -->
+        <div class="two-col-grid">
+            
+            <!-- Traffic by Website -->
+            <div class="content-box">
+                <div class="box-title">Traffic by Website</div>
+                <div style="padding: 12px 0;">
+                    <div style="margin-bottom: 16px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="color: #6b7280; font-size: 14px;">Google</span>
+                            <span style="font-weight: 600; font-size: 14px;">45%</span>
+                        </div>
+                        <div style="width: 100%; height: 6px; background: #e5e7eb; border-radius: 3px;">
+                            <div style="width: 45%; height: 100%; background: #111827; border-radius: 3px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 16px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="color: #6b7280; font-size: 14px;">YouTube</span>
+                            <span style="font-weight: 600; font-size: 14px;">25%</span>
+                        </div>
+                        <div style="width: 100%; height: 6px; background: #e5e7eb; border-radius: 3px;">
+                            <div style="width: 25%; height: 100%; background: #111827; border-radius: 3px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 16px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="color: #6b7280; font-size: 14px;">Instagram</span>
+                            <span style="font-weight: 600; font-size: 14px;">15%</span>
+                        </div>
+                        <div style="width: 100%; height: 6px; background: #e5e7eb; border-radius: 3px;">
+                            <div style="width: 15%; height: 100%; background: #111827; border-radius: 3px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 16px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="color: #6b7280; font-size: 14px;">Pinterest</span>
+                            <span style="font-weight: 600; font-size: 14px;">8%</span>
+                        </div>
+                        <div style="width: 100%; height: 6px; background: #e5e7eb; border-radius: 3px;">
+                            <div style="width: 8%; height: 100%; background: #111827; border-radius: 3px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activities -->
+            <div class="content-box">
+                <div class="box-title">Activities</div>
+                <div>
+                    <div class="activity-item">
+                        <div class="activity-avatar">Y</div>
+                        <div>
+                            <div class="activity-text"><strong>You</strong> have a bug that needs...</div>
+                            <div class="activity-time">Just now</div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-avatar">N</div>
+                        <div>
+                            <div class="activity-text"><strong>New user</strong> registered</div>
+                            <div class="activity-time">59 minutes ago</div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-avatar">A</div>
+                        <div>
+                            <div class="activity-text"><strong>Andi Lane</strong> subscribed to you</div>
+                            <div class="activity-time">Today, 11:59 AM</div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-avatar">R</div>
+                        <div>
+                            <div class="activity-text"><strong>Released</strong> a new version</div>
+                            <div class="activity-time">Yesterday, 2:45 PM</div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-avatar">S</div>
+                        <div>
+                            <div class="activity-text"><strong>Submitted</strong> a bug</div>
+                            <div class="activity-time">Yesterday, 1:00 PM</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Section -->
+        <div class="two-col-grid">
+            
+            <!-- Traffic by Device -->
+            <div class="content-box">
+                <div class="box-title">Traffic by Device</div>
+                <div class="chart-wrapper" style="height: 250px;">
+                    <canvas id="deviceChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Traffic by Location -->
+            <div class="content-box">
+                <div class="box-title">Traffic by Location</div>
+                <div class="chart-wrapper" style="height: 250px;">
+                    <canvas id="locationChart"></canvas>
+                </div>
+                <div style="margin-top: 20px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span style="font-size: 14px; color: #6b7280;">United States</span>
+                        <span style="font-weight: 600; font-size: 14px;">38.6%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span style="font-size: 14px; color: #6b7280;">Canada</span>
+                        <span style="font-weight: 600; font-size: 14px;">22.5%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span style="font-size: 14px; color: #6b7280;">Mexico</span>
+                        <span style="font-weight: 600; font-size: 14px;">30.8%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="font-size: 14px; color: #6b7280;">Other</span>
+                        <span style="font-weight: 600; font-size: 14px;">8.1%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contacts Section -->
+        <div class="content-box">
+            <div class="box-title">Contacts</div>
+            <div>
+                <div class="contact-item">
+                    <div class="contact-avatar">N</div>
+                    <span style="font-weight: 500;">Natali Craig</span>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-avatar">D</div>
+                    <span style="font-weight: 500;">Drew Cano</span>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-avatar">O</div>
+                    <span style="font-weight: 500;">Orlando Diggs</span>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-avatar">A</div>
+                    <span style="font-weight: 500;">Andi Lane</span>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-avatar">K</div>
+                    <span style="font-weight: 500;">Kate Morrison</span>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-avatar">K</div>
+                    <span style="font-weight: 500;">Koray Okumus</span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- jQuery Library -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <!-- Custom Scripts -->
+    <script src="script.js"></script>
+    
+    <script>
+        // Chart initialization
+        var isDarkMode = $('body').hasClass('dark-mode');
+        
+        // User Chart
+        var userCtx = document.getElementById('userChart').getContext('2d');
+        var userChart = new Chart(userCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                datasets: [{
+                    label: 'Users',
+                    data: [30000, 45000, 35000, 50000, 42000, 55000, 50000],
+                    borderColor: isDarkMode ? '#ffffff' : '#000000',
+                    backgroundColor: 'transparent',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        grid: { color: isDarkMode ? '#374151' : '#e5e7eb' },
+                        ticks: { color: isDarkMode ? '#9ca3af' : '#6b7280' }
+                    },
+                    y: {
+                        grid: { color: isDarkMode ? '#374151' : '#e5e7eb' },
+                        ticks: { color: isDarkMode ? '#9ca3af' : '#6b7280' }
+                    }
+                }
+            }
+        });
+        
+        // Device Chart
+        var deviceCtx = document.getElementById('deviceChart').getContext('2d');
+        var deviceChart = new Chart(deviceCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Laptop', 'Mobile', 'Desktop', 'Tablet', 'Watch', 'Other'],
+                datasets: [{
+                    data: [30, 35, 25, 28, 20, 25],
+                    backgroundColor: ['#6366f1', '#8b5cf6', '#1f2937', '#60a5fa', '#94a3b8', '#d1d5db'],
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: isDarkMode ? '#9ca3af' : '#6b7280' }
+                    },
+                    y: {
+                        grid: { color: isDarkMode ? '#374151' : '#e5e7eb' },
+                        ticks: { color: isDarkMode ? '#9ca3af' : '#6b7280' }
+                    }
+                }
+            }
+        });
+        
+        // Location Chart
+        var locationCtx = document.getElementById('locationChart').getContext('2d');
+        var locationChart = new Chart(locationCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['United States', 'Canada', 'Mexico', 'Other'],
+                datasets: [{
+                    data: [38.6, 22.5, 30.8, 8.1],
+                    backgroundColor: ['#6366f1', '#8b5cf6', '#10b981', '#1f2937'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+        
+        // Update chart colors on theme change
+        function updateChartTheme(dark) {
+            var gridColor = dark ? '#374151' : '#e5e7eb';
+            var textColor = dark ? '#9ca3af' : '#6b7280';
+            var lineColor = dark ? '#ffffff' : '#000000';
+            
+            userChart.data.datasets[0].borderColor = lineColor;
+            userChart.options.scales.x.grid.color = gridColor;
+            userChart.options.scales.y.grid.color = gridColor;
+            userChart.options.scales.x.ticks.color = textColor;
+            userChart.options.scales.y.ticks.color = textColor;
+            userChart.update();
+            
+            deviceChart.options.scales.x.ticks.color = textColor;
+            deviceChart.options.scales.y.ticks.color = textColor;
+            deviceChart.options.scales.y.grid.color = gridColor;
+            deviceChart.update();
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order List | Snow UI Kit</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+  <h2>Kit</h2>
+  <nav>
+    <a href="index.html">Default</a>
+    <a href="ecommerce.html">eCommerce</a>
+    <a href="orders.html" class="active">Order List</a>
+  </nav>
+</aside>
+
+<!-- Header -->
+<header class="header">
+  <h3>Order List</h3>
+  <button id="theme-toggle">🌙</button>
+</header>
+
+<!-- Main Content -->
+<main class="main">
+  <div class="box">
+    <h4>All Orders</h4>
+    <table>
+      <thead>
+        <tr>
+          <th><input type="checkbox"></th>
+          <th>Order ID</th>
+          <th>Customer</th>
+          <th>Project</th>
+          <th>Address</th>
+          <th>Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td><strong>#CM9801</strong></td>
+          <td>Natali Craig</td>
+          <td>Landing Page</td>
+          <td>Meadow Lane Oakland</td>
+          <td>Just now</td>
+          <td><span class="status blue">In Progress</span></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td><strong>#CM9802</strong></td>
+          <td>Kate Morrison</td>
+          <td>CRM Admin pages</td>
+          <td>Larry San Francisco</td>
+          <td>A minute ago</td>
+          <td><span class="status green">Complete</span></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td><strong>#CM9803</strong></td>
+          <td>Drew Cano</td>
+          <td>Client Project</td>
+          <td>Bagwell Avenue Ocala</td>
+          <td>1 hour ago</td>
+          <td><span class="status yellow">Pending</span></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td><strong>#CM9804</strong></td>
+          <td>Orlando Diggs</td>
+          <td>Admin Dashboard</td>
+          <td>Washburn Baton Rouge</td>
+          <td>Yesterday</td>
+          <td><span class="status purple">Approved</span></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td><strong>#CM9805</strong></td>
+          <td>Andi Lane</td>
+          <td>App Landing Page</td>
+          <td>Nest Lane Olivette</td>
+          <td>Feb 2, 2023</td>
+          <td><span class="status red">Rejected</span></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td><strong>#CM9806</strong></td>
+          <td>Koray Okumus</td>
+          <td>Portfolio Website</td>
+          <td>Sunset Boulevard LA</td>
+          <td>Feb 1, 2023</td>
+          <td><span class="status green">Complete</span></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td><strong>#CM9807</strong></td>
+          <td>Emily Johnson</td>
+          <td>Mobile App UI</td>
+          <td>Park Avenue NYC</td>
+          <td>Jan 31, 2023</td>
+          <td><span class="status blue">In Progress</span></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td><strong>#CM9808</strong></td>
+          <td>Michael Chen</td>
+          <td>Dashboard Analytics</td>
+          <td>Market Street SF</td>
+          <td>Jan 30, 2023</td>
+          <td><span class="status yellow">Pending</span></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td><strong>#CM9809</strong></td>
+          <td>Sarah Williams</td>
+          <td>E-commerce Site</td>
+          <td>Main Street Boston</td>
+          <td>Jan 29, 2023</td>
+          <td><span class="status purple">Approved</span></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td><strong>#CM9810</strong></td>
+          <td>David Brown</td>
+          <td>Blog Platform</td>
+          <td>High Street London</td>
+          <td>Jan 28, 2023</td>
+          <td><span class="status green">Complete</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div style="display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 24px;">
+      <button style="padding: 8px 12px; border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 6px; cursor: pointer;">←</button>
+      <button style="padding: 8px 16px; border: none; background: var(--text); color: var(--card); border-radius: 6px; cursor: pointer; font-weight: 600;">1</button>
+      <button style="padding: 8px 16px; border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 6px; cursor: pointer;">2</button>
+      <button style="padding: 8px 16px; border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 6px; cursor: pointer;">3</button>
+      <button style="padding: 8px 16px; border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 6px; cursor: pointer;">4</button>
+      <button style="padding: 8px 16px; border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 6px; cursor: pointer;">5</button>
+      <button style="padding: 8px 12px; border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 6px; cursor: pointer;">→</button>
+    </div>
+  </div>
+</main>
+
+<!-- Theme Toggle Script -->
+<script src="../theme/theme.js"></script>
+
+</body>
+</html>
