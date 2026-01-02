@@ -1,190 +1,967 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>eCommerce Dashboard | Snow UI Kit</title>
-  <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eCommerce Dashboard | Snow UI Kit</title>
+    <style>
+/* ============ CSS VARIABLES ============ */
+:root {
+    --primary: #4f46e5;
+    --primary-dark: #4338ca;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --info: #3b82f6;
+    --secondary: #7c3aed;
+    
+    --bg: #f9fafb;
+    --card: #ffffff;
+    --text: #111827;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --hover: #f3f4f6;
+    
+    --sidebar-width: 220px;
+    --header-height: 64px;
+    --radius: 10px;
+}
+
+body.dark-mode {
+    --bg: #0f1419;
+    --card: #1a1f2e;
+    --text: #f9fafb;
+    --muted: #9ca3af;
+    --border: #2d3748;
+    --hover: #2d3748;
+}
+
+/* ============ RESET & BASE ============ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', Arial, sans-serif;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* ============ MAIN LAYOUT ============ */
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+/* ============ SIDEBAR ============ */
+.sidebar {
+    width: var(--sidebar-width);
+    min-width: var(--sidebar-width);
+    height: 100vh;
+    background: var(--card);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    padding: 20px 20px 16px 20px;
+}
+
+.nav-section {
+    padding: 16px 12px;
+}
+
+.nav-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    padding: 0 8px;
+}
+
+.nav-items {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.15s ease;
+}
+
+.nav-link:hover {
+    background: var(--hover);
+}
+
+.nav-link.active {
+    background: var(--primary);
+    color: white;
+}
+
+/* ============ MAIN CONTENT AREA ============ */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    min-width: 0;
+}
+
+/* ============ HEADER ============ */
+.header {
+    height: var(--header-height);
+    min-height: var(--header-height);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    z-index: 10;
+    flex-shrink: 0;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.page-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.search-box {
+    position: relative;
+    width: 240px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 8px 12px 8px 36px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 13px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.search-input::placeholder {
+    color: var(--muted);
+}
+
+.search-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.theme-toggle {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+    background: var(--hover);
+}
+
+/* ============ DASHBOARD CONTENT ============ */
+.dashboard-content {
+    flex: 1;
+    padding: 20px 24px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: var(--bg);
+    width: 100%;
+    max-width: 100%;
+}
+
+.dashboard-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.dashboard-content::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+/* ============ STATS GRID ============ */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    min-width: 0;
+    width: 100%;
+}
+
+.stat-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.stat-title {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+}
+
+.stat-change {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.stat-change.positive {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+}
+
+.stat-change.negative {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+}
+
+/* ============ CHARTS & CARDS ============ */
+.chart-container, .card-container {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    height: fit-content;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.chart-wrapper {
+    height: 280px;
+    position: relative;
+}
+
+/* ============ GRIDS ============ */
+.main-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+/* ============ WORLD MAP ============ */
+.map-container {
+    width: 100%;
+    height: 220px;
+    background: var(--bg);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 16px;
+}
+
+.location-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.location-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.location-name {
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.location-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+/* ============ PRODUCTS TABLE ============ */
+.products-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.products-table th {
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border);
+}
+
+.products-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+}
+
+.products-table tbody tr:hover {
+    background: var(--hover);
+}
+
+.product-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.product-image {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-name {
+    font-weight: 500;
+    color: var(--text);
+    font-size: 13px;
+}
+
+.product-id {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+/* ============ PIE CHART ============ */
+.pie-wrapper {
+    height: 200px;
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.pie-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pie-legend-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+}
+
+.pie-legend-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text);
+}
+
+.pie-legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.pie-legend-value {
+    font-weight: 600;
+    color: var(--text);
+}
+
+/* ============ RESPONSIVE ============ */
+.menu-toggle {
+    display: none;
+}
+
+@media (max-width: 1024px) {
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        transform: translateX(-100%);
+        z-index: 100;
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    
+    .menu-toggle {
+        display: flex;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .bottom-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .search-box {
+        width: 160px;
+    }
+}
+    </style>
 </head>
 <body>
 
-<!-- Sidebar -->
-<aside class="sidebar">
-  <h2>Kit</h2>
-  <nav>
-    <a href="index.html">Default</a>
-    <a href="ecommerce.html" class="active">eCommerce</a>
-    <a href="orders.html">Order List</a>
-  </nav>
-</aside>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">Kit</div>
+            
+            <div class="nav-section">
+                <div class="nav-label">Favorites</div>
+                <div class="nav-items">
+                    <a href="#" class="nav-link">Overview</a>
+                    <a href="#" class="nav-link">Projects</a>
+                </div>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-label">Dashboards</div>
+                <div class="nav-items">
+                    <a href="#" class="nav-link">Default</a>
+                    <a href="#" class="nav-link active">eCommerce</a>
+                    <a href="#" class="nav-link">Projects</a>
+                    <a href="#" class="nav-link">Online Courses</a>
+                </div>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-label">Pages</div>
+                <div class="nav-items">
+                    <a href="#" class="nav-link">User Profile</a>
+                    <a href="#" class="nav-link">Order List</a>
+                    <a href="#" class="nav-link">Account</a>
+                    <a href="#" class="nav-link">Corporate</a>
+                    <a href="#" class="nav-link">Blog</a>
+                    <a href="#" class="nav-link">Social</a>
+                </div>
+            </div>
+        </aside>
 
-<!-- Header -->
-<header class="header">
-  <h3>eCommerce Dashboard</h3>
-  <button id="theme-toggle">🌙</button>
-</header>
+        <!-- Main Content -->
+        <div class="main-content">
+            
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="menu-toggle theme-toggle" style="margin-right: 12px;">☰</button>
+                    <h1 class="page-title">eCommerce</h1>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" class="search-input" placeholder="Search...">
+                    </div>
+                    <button class="theme-toggle">🌙</button>
+                </div>
+            </header>
 
-<!-- Main Content -->
-<main class="main">
-  <!-- Stats Cards -->
-  <div class="cards">
-    <div class="card">
-      <p>Customers</p>
-      <h2>3,781</h2>
-      <span class="trend up">↗ +11.01%</span>
+            <!-- Dashboard Content -->
+            <main class="dashboard-content">
+                
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Customers</span>
+                            <span class="stat-change positive">↗ +11.01%</span>
+                        </div>
+                        <div class="stat-value">3,781</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Orders</span>
+                            <span class="stat-change negative">↘ -0.03%</span>
+                        </div>
+                        <div class="stat-value">1,219</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Revenue</span>
+                            <span class="stat-change positive">↗ +15.03%</span>
+                        </div>
+                        <div class="stat-value">$695</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Growth</span>
+                            <span class="stat-change positive">↗ +6.08%</span>
+                        </div>
+                        <div class="stat-value">30.1%</div>
+                    </div>
+                </div>
+
+                <!-- Projections Chart -->
+                <div class="chart-container" style="margin-bottom: 20px;">
+                    <div class="card-header">
+                        <h3 class="card-title">Projections vs Actuals</h3>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="projectionsChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Main Grid -->
+                <div class="main-grid">
+                    <!-- Revenue Chart -->
+                    <div class="chart-container">
+                        <div class="card-header">
+                            <h3 class="card-title">Revenue</h3>
+                            <div style="font-size: 12px; color: var(--muted);">
+                                <span style="margin-right: 12px;">● Current Week: <strong>$58,211</strong></span>
+                                <span>● Previous Week: <strong>$68,768</strong></span>
+                            </div>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Revenue by Location -->
+                    <div class="card-container">
+                        <div class="card-header">
+                            <h3 class="card-title">Revenue by Location</h3>
+                        </div>
+                        <div class="map-container">🗺️ Map Visualization</div>
+                        <div class="location-list">
+                            <div class="location-item">
+                                <span class="location-name">New York</span>
+                                <span class="location-value">72K</span>
+                            </div>
+                            <div class="location-item">
+                                <span class="location-name">San Francisco</span>
+                                <span class="location-value">39K</span>
+                            </div>
+                            <div class="location-item">
+                                <span class="location-name">Sydney</span>
+                                <span class="location-value">25K</span>
+                            </div>
+                            <div class="location-item">
+                                <span class="location-name">Singapore</span>
+                                <span class="location-value">61K</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Grid -->
+                <div class="bottom-grid">
+                    <!-- Top Selling Products -->
+                    <div class="card-container">
+                        <div class="card-header">
+                            <h3 class="card-title">Top Selling Products</h3>
+                        </div>
+                        <table class="products-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="product-info">
+                                            <div class="product-image">👕</div>
+                                            <div class="product-details">
+                                                <div class="product-name">ASOS Barley High Waist</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>$79.49</td>
+                                    <td>82</td>
+                                    <td><strong>$6,518.18</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="product-info">
+                                            <div class="product-image">👔</div>
+                                            <div class="product-details">
+                                                <div class="product-name">Marco Lightweight Shirt</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>$128.50</td>
+                                    <td>37</td>
+                                    <td><strong>$4,754.50</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="product-info">
+                                            <div class="product-image">👟</div>
+                                            <div class="product-details">
+                                                <div class="product-name">Half Sleeve T-Shirt</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>$39.99</td>
+                                    <td>64</td>
+                                    <td><strong>$2,559.36</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="product-info">
+                                            <div class="product-image">👗</div>
+                                            <div class="product-details">
+                                                <div class="product-name">Lightweight Jacket</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>$20.00</td>
+                                    <td>184</td>
+                                    <td><strong>$3,680.00</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Total Sales -->
+                    <div class="card-container">
+                        <div class="card-header">
+                            <h3 class="card-title">Total Sales</h3>
+                        </div>
+                        <div class="pie-wrapper">
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                        <div class="pie-legend">
+                            <div class="pie-legend-item">
+                                <div class="pie-legend-label">
+                                    <div class="pie-legend-dot" style="background: #111827;"></div>
+                                    <span>Direct</span>
+                                </div>
+                                <span class="pie-legend-value">$300.56</span>
+                            </div>
+                            <div class="pie-legend-item">
+                                <div class="pie-legend-label">
+                                    <div class="pie-legend-dot" style="background: #4f46e5;"></div>
+                                    <span>Affiliate</span>
+                                </div>
+                                <span class="pie-legend-value">$135.18</span>
+                            </div>
+                            <div class="pie-legend-item">
+                                <div class="pie-legend-label">
+                                    <div class="pie-legend-dot" style="background: #7c3aed;"></div>
+                                    <span>Sponsored</span>
+                                </div>
+                                <span class="pie-legend-value">$154.02</span>
+                            </div>
+                            <div class="pie-legend-item">
+                                <div class="pie-legend-label">
+                                    <div class="pie-legend-dot" style="background: #e5e7eb;"></div>
+                                    <span>E-mail</span>
+                                </div>
+                                <span class="pie-legend-value">$48.96</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
     </div>
-    <div class="card">
-      <p>Orders</p>
-      <h2>1,219</h2>
-      <span class="trend down">↘ -0.03%</span>
-    </div>
-    <div class="card">
-      <p>Revenue</p>
-      <h2>$695</h2>
-      <span class="trend up">↗ +15.03%</span>
-    </div>
-    <div class="card">
-      <p>Growth</p>
-      <h2>30.1%</h2>
-      <span class="trend up">↗ +6.08%</span>
-    </div>
-  </div>
 
-  <!-- Projections Chart -->
-  <div class="box">
-    <h4>Projections vs Actuals</h4>
-    <canvas id="projectionsChart" width="800" height="300"></canvas>
-  </div>
-
-  <!-- Two Column Layout -->
-  <div class="grid-2">
-    <!-- Top Products -->
-    <div class="box">
-      <h4>Top Selling Products</h4>
-      <ul>
-        <li>ASOS Ridley High Waist — <strong>$6,518</strong></li>
-        <li>Marco Lightweight Shirt — <strong>$4,754</strong></li>
-        <li>Half Sleeve Shirt — <strong>$2,559</strong></li>
-        <li>Lightweight Jacket — <strong>$3,680</strong></li>
-      </ul>
-    </div>
-
-    <!-- Revenue by Location -->
-    <div class="box">
-      <h4>Revenue by Location</h4>
-      <ul>
-        <li>New York — <strong>72K</strong></li>
-        <li>San Francisco — <strong>39K</strong></li>
-        <li>Sydney — <strong>25K</strong></li>
-        <li>Singapore — <strong>61K</strong></li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Sales Overview -->
-  <div class="box">
-    <h4>Total Sales Overview</h4>
-    <canvas id="salesChart" width="400" height="300"></canvas>
-  </div>
-</main>
-
-<!-- Chart.js Library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
-
-<!-- Theme Toggle Script -->
-<script src="../theme/theme.js"></script>
-
-<!-- Chart Initialization -->
-<script>
-  function getChartColors() {
-    const isDark = document.body.classList.contains('dark');
-    return {
-      gridColor: isDark ? '#374151' : '#e5e7eb',
-      textColor: isDark ? '#9ca3af' : '#6b7280'
-    };
-  }
-
-  // Projections Bar Chart
-  const projectionsCtx = document.getElementById('projectionsChart');
-  let projectionsChart = new Chart(projectionsCtx, {
-    type: 'bar',
-    data: {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-      datasets: [{
-        label: 'Projections',
-        data: [25, 60, 45, 70, 55, 85],
-        backgroundColor: '#6366f1',
-        borderRadius: 8
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          display: false
-        }
-      },
-      scales: {
-        x: {
-          grid: {
-            display: false
-          },
-          ticks: {
-            color: getChartColors().textColor
-          }
-        },
-        y: {
-          grid: {
-            color: getChartColors().gridColor
-          },
-          ticks: {
-            color: getChartColors().textColor
-          }
-        }
-      }
-    }
-  });
-
-  // Sales Pie Chart
-  const salesCtx = document.getElementById('salesChart');
-  let salesChart = new Chart(salesCtx, {
-    type: 'doughnut',
-    data: {
-      labels: ['Direct Sales', 'Affiliate Sales'],
-      datasets: [{
-        data: [300.56, 135.18],
-        backgroundColor: ['#6366f1', '#1f2937'],
-        borderWidth: 0
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: 'bottom',
-          labels: {
-            usePointStyle: true,
-            padding: 20
-          }
-        }
-      }
-    }
-  });
-
-  // Update charts on theme toggle
-  const originalToggle = window.toggleTheme;
-  window.toggleTheme = function() {
-    originalToggle();
-    const colors = getChartColors();
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     
-    projectionsChart.options.scales.x.ticks.color = colors.textColor;
-    projectionsChart.options.scales.y.ticks.color = colors.textColor;
-    projectionsChart.options.scales.y.grid.color = colors.gridColor;
-    projectionsChart.update();
-  };
-</script>
+    <!-- Theme Toggle Script -->
+    <script>
+        // Theme Toggle
+        const themeToggles = document.querySelectorAll('.theme-toggle:not(.menu-toggle)');
+        const body = document.body;
+        
+        themeToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                const isDark = body.classList.contains('dark-mode');
+                toggle.textContent = isDark ? '☀️' : '🌙';
+                
+                // Update all theme toggles
+                themeToggles.forEach(t => t.textContent = isDark ? '☀️' : '🌙');
+                
+                // Update charts
+                if (typeof updateChartColors === 'function') {
+                    updateChartColors(isDark);
+                }
+            });
+        });
+        
+        // Menu Toggle (Mobile)
+        const menuToggle = document.querySelector('.menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+        
+        if (menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+            });
+        }
+    </script>
 
-</body>
-</html>
+    <!-- Charts Initialization -->
+    <script>
+        function getChartColors() {
+            const isDark = document.body.classList.contains('dark-mode');
+            return {
+                grid: isDark ? '#2d3748' : '#e5e7eb',
+                text: isDark ? '#9ca3af' : '#6b7280',
+                line: isDark ? '#f9fafb' : '#111827'
+            };
+        }
+
+        const colors = getChartColors();
+
+        // Projections Chart
+        const projectionsChart = new Chart(document.getElementById('projectionsChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    data: [15, 20, 18, 25, 20, 28],
+                    backgroundColor: colors.line,
+                    borderRadius: 4,
+                    barThickness: 32
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { 
+                        grid: { display: false }, 
+                        ticks: { color: colors.text, font: { size: 11 } },
+                        border: { display: false }
+                    },
+                    y: { 
+                        grid: { color: colors.grid }, 
+                        ticks: { color: colors.text, font: { size: 11 } },
+                        border: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Revenue Chart
+        const revenueChart = new Chart(document.getElementById('revenueChart'), {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [
+                    {
+                        label: 'Current',
+                        data: [10, 20, 15, 25, 20, 30],
+                        borderColor: colors.line,
+                        backgroundColor: 'transparent',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        pointRadius: 0
+                    },
+                    {
+                        label: 'Previous',
+                        data: [5, 15, 20, 18, 22, 25],
+                        borderColor: colors.grid,
+                        backgroundColor: 'transparent',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        pointRadius: 0,
+                        borderDash: [5, 5]
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { 
+                        grid: { color: colors.grid, display: false }, 
+                        ticks: { color: colors.text, font: { size: 11 } },
+                        border: { display: false }
+                    },
+                    y: { 
+                        grid: { color: colors.grid }, 
+                        ticks: { color: colors.text, font: { size: 11 } },
+                        border: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Sales Chart
+        const salesChart = new Chart(document.getElementById('salesChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Direct', 'Affiliate', 'Sponsored', 'E-mail'],
+                datasets: [{
+                    data: [300.56, 135.18, 154.02, 48.96],
+                    backgroundColor: ['#111827', '#4f46e5', '#7c3aed', '#e5e7eb'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                cutout: '70%'
+            }
+        });
+
+        // Update charts on theme change
+        function updateChartColors(isDark) {
+            const colors = getChartColors();
+            
+            [projectionsChart, revenueChart].forEach(chart => {
+                if (chart.options.scales) {
+                    chart.options.scales.x.grid.color = colors.grid;
+                    chart.options.scales.x.ticks.color = colors.text;
+                    if (chart.

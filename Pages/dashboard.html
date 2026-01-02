@@ -4,279 +4,871 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Default Dashboard | Snow UI Kit</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+/* ============ CSS VARIABLES ============ */
+:root {
+    --primary: #4f46e5;
+    --primary-dark: #4338ca;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --info: #3b82f6;
+    --secondary: #7c3aed;
+    
+    --bg: #f9fafb;
+    --card: #ffffff;
+    --text: #111827;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --hover: #f3f4f6;
+    
+    --sidebar-width: 220px;
+    --header-height: 64px;
+    --radius: 10px;
+}
+
+body.dark-mode {
+    --bg: #0f1419;
+    --card: #1a1f2e;
+    --text: #f9fafb;
+    --muted: #9ca3af;
+    --border: #2d3748;
+    --hover: #2d3748;
+}
+
+/* ============ RESET & BASE ============ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', Arial, sans-serif;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* ============ MAIN LAYOUT ============ */
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+/* ============ SIDEBAR ============ */
+.sidebar {
+    width: var(--sidebar-width);
+    min-width: var(--sidebar-width);
+    height: 100vh;
+    background: var(--card);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    padding: 20px 20px 16px 20px;
+}
+
+.nav-section {
+    padding: 16px 12px;
+}
+
+.nav-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    padding: 0 8px;
+}
+
+.nav-items {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.15s ease;
+}
+
+.nav-link:hover {
+    background: var(--hover);
+}
+
+.nav-link.active {
+    background: var(--primary);
+    color: white;
+}
+
+/* ============ MAIN CONTENT AREA ============ */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    min-width: 0;
+}
+
+/* ============ HEADER ============ */
+.header {
+    height: var(--header-height);
+    min-height: var(--header-height);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    z-index: 10;
+    flex-shrink: 0;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.page-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.search-box {
+    position: relative;
+    width: 240px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 8px 12px 8px 36px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 13px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.search-input::placeholder {
+    color: var(--muted);
+}
+
+.search-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.theme-toggle {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+    background: var(--hover);
+}
+
+/* ============ DASHBOARD CONTENT ============ */
+.dashboard-content {
+    flex: 1;
+    padding: 20px 24px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: var(--bg);
+    width: 100%;
+    max-width: 100%;
+}
+
+.dashboard-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.dashboard-content::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+/* ============ STATS GRID ============ */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    min-width: 0;
+    width: 100%;
+}
+
+.stat-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.stat-title {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+}
+
+.stat-change {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.stat-change.positive {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+}
+
+.stat-change.negative {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+}
+
+/* ============ CHARTS & CARDS ============ */
+.chart-container, .card-container {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    height: fit-content;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.chart-wrapper {
+    height: 280px;
+    position: relative;
+}
+
+/* ============ GRIDS ============ */
+.main-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+/* ============ TRAFFIC BY WEBSITE ============ */
+.traffic-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.traffic-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.traffic-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.traffic-name {
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.traffic-percent {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+.traffic-bar {
+    width: 100%;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.traffic-fill {
+    height: 100%;
+    background: var(--text);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+/* ============ ACTIVITIES ============ */
+.activities-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 8px 0;
+}
+
+.activity-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+.activity-content {
+    flex: 1;
+}
+
+.activity-text {
+    font-size: 13px;
+    margin-bottom: 3px;
+    color: var(--text);
+    line-height: 1.4;
+}
+
+.activity-text strong {
+    font-weight: 600;
+}
+
+.activity-time {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+/* ============ CONTACTS ============ */
+.contacts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.contact-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+    cursor: pointer;
+}
+
+.contact-item:hover {
+    background: var(--hover);
+}
+
+.contact-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.contact-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    text-align: center;
+}
+
+/* ============ RESPONSIVE ============ */
+.menu-toggle {
+    display: none;
+}
+
+@media (max-width: 1024px) {
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        transform: translateX(-100%);
+        z-index: 100;
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    
+    .menu-toggle {
+        display: flex;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .bottom-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .search-box {
+        width: 160px;
+    }
+}
+    </style>
 </head>
 <body>
 
-
-    <aside class="sidebar">
-        <h2>SnowUI</h2>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
         
-        <nav>
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">Kit</div>
+            
             <div class="nav-section">
                 <div class="nav-label">Favorites</div>
-                <a href="#" class="nav-link">Overview</a>
-                <a href="#" class="nav-link">Projects</a>
+                <div class="nav-items">
+                    <a href="#" class="nav-link">Overview</a>
+                    <a href="#" class="nav-link">Projects</a>
+                </div>
             </div>
             
             <div class="nav-section">
                 <div class="nav-label">Dashboards</div>
-                <a href="index.html" class="nav-link active">Default</a>
-                <a href="ecommerce.html" class="nav-link">eCommerce</a>
-                <a href="#" class="nav-link">Projects</a>
-                <a href="#" class="nav-link">Online Courses</a>
+                <div class="nav-items">
+                    <a href="dashboard.html" class="nav-link active">Default</a>
+                    <a href="ecommerce.html" class="nav-link">eCommerce</a>
+                    <a href="#" class="nav-link">Projects</a>
+                    <a href="#" class="nav-link">Online Courses</a>
+                </div>
             </div>
             
             <div class="nav-section">
                 <div class="nav-label">Pages</div>
-                <a href="#" class="nav-link">User Profile</a>
-                <a href="orders.html" class="nav-link">Order List</a>
-                <a href="#" class="nav-link">Account</a>
-                <a href="#" class="nav-link">Corporate</a>
-                <a href="#" class="nav-link">Blog</a>
-                <a href="#" class="nav-link">Social</a>
+                <div class="nav-items">
+                    <a href="#" class="nav-link">User Profile</a>
+                    <a href="orders.html" class="nav-link">Order List</a>
+                    <a href="#" class="nav-link">Account</a>
+                    <a href="#" class="nav-link">Corporate</a>
+                    <a href="#" class="nav-link">Blog</a>
+                    <a href="#" class="nav-link">Social</a>
+                </div>
             </div>
-        </nav>
-    </aside>
+        </aside>
 
-    <!-- Header -->
-    <header class="header">
-        <div class="header-left">
-            <h2>Default</h2>
-        </div>
-        <div class="header-right">
-            <button class="theme-toggle">🌙</button>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        
-        <!-- Stats Cards -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-label">Views</div>
-                <div class="stat-value">721K</div>
-                <span class="stat-trend positive">↗ +11.01%</span>
-            </div>
+        <!-- Main Content -->
+        <div class="main-content">
             
-            <div class="stat-card">
-                <div class="stat-label">Visits</div>
-                <div class="stat-value">367K</div>
-                <span class="stat-trend negative">↘ -0.03%</span>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-label">New Users</div>
-                <div class="stat-value">1,156</div>
-                <span class="stat-trend positive">↗ +15.03%</span>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-label">Active Users</div>
-                <div class="stat-value">239K</div>
-                <span class="stat-trend positive">↗ +6.08%</span>
-            </div>
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="menu-toggle theme-toggle" style="margin-right: 12px;">☰</button>
+                    <h1 class="page-title">Default</h1>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" class="search-input" placeholder="Search...">
+                    </div>
+                    <button class="theme-toggle">🌙</button>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <main class="dashboard-content">
+                
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Views</span>
+                            <span class="stat-change positive">↗ +11.01%</span>
+                        </div>
+                        <div class="stat-value">721K</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Visits</span>
+                            <span class="stat-change negative">↘ -0.03%</span>
+                        </div>
+                        <div class="stat-value">367K</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">New Users</span>
+                            <span class="stat-change positive">↗ +15.03%</span>
+                        </div>
+                        <div class="stat-value">1,156</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Active Users</span>
+                            <span class="stat-change positive">↗ +6.08%</span>
+                        </div>
+                        <div class="stat-value">239K</div>
+                    </div>
+                </div>
+
+                <!-- Main Grid -->
+                <div class="main-grid">
+                    <!-- Chart -->
+                    <div class="chart-container">
+                        <div class="card-header">
+                            <h3 class="card-title">Total Users</h3>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="userChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Traffic by Website -->
+                    <div class="card-container">
+                        <div class="card-header">
+                            <h3 class="card-title">Traffic by Website</h3>
+                        </div>
+                        <div class="traffic-list">
+                            <div class="traffic-item">
+                                <div class="traffic-header">
+                                    <span class="traffic-name">Google</span>
+                                    <span class="traffic-percent">45%</span>
+                                </div>
+                                <div class="traffic-bar">
+                                    <div class="traffic-fill" style="width: 45%;"></div>
+                                </div>
+                            </div>
+                            <div class="traffic-item">
+                                <div class="traffic-header">
+                                    <span class="traffic-name">YouTube</span>
+                                    <span class="traffic-percent">25%</span>
+                                </div>
+                                <div class="traffic-bar">
+                                    <div class="traffic-fill" style="width: 25%;"></div>
+                                </div>
+                            </div>
+                            <div class="traffic-item">
+                                <div class="traffic-header">
+                                    <span class="traffic-name">Instagram</span>
+                                    <span class="traffic-percent">15%</span>
+                                </div>
+                                <div class="traffic-bar">
+                                    <div class="traffic-fill" style="width: 15%;"></div>
+                                </div>
+                            </div>
+                            <div class="traffic-item">
+                                <div class="traffic-header">
+                                    <span class="traffic-name">Pinterest</span>
+                                    <span class="traffic-percent">8%</span>
+                                </div>
+                                <div class="traffic-bar">
+                                    <div class="traffic-fill" style="width: 8%;"></div>
+                                </div>
+                            </div>
+                            <div class="traffic-item">
+                                <div class="traffic-header">
+                                    <span class="traffic-name">Facebook</span>
+                                    <span class="traffic-percent">5%</span>
+                                </div>
+                                <div class="traffic-bar">
+                                    <div class="traffic-fill" style="width: 5%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Grid -->
+                <div class="bottom-grid">
+                    <!-- Activities -->
+                    <div class="card-container">
+                        <div class="card-header">
+                            <h3 class="card-title">Activities</h3>
+                        </div>
+                        <div class="activities-list">
+                            <div class="activity-item">
+                                <div class="activity-avatar">Y</div>
+                                <div class="activity-content">
+                                    <div class="activity-text"><strong>You</strong> have a bug that needs...</div>
+                                    <div class="activity-time">Just now</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-avatar">N</div>
+                                <div class="activity-content">
+                                    <div class="activity-text"><strong>New user</strong> registered</div>
+                                    <div class="activity-time">59 minutes ago</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-avatar">A</div>
+                                <div class="activity-content">
+                                    <div class="activity-text"><strong>Andi Lane</strong> subscribed to you</div>
+                                    <div class="activity-time">Today, 11:59 AM</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-avatar">R</div>
+                                <div class="activity-content">
+                                    <div class="activity-text"><strong>Released</strong> a new version</div>
+                                    <div class="activity-time">Yesterday, 2:45 PM</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-avatar">S</div>
+                                <div class="activity-content">
+                                    <div class="activity-text"><strong>Submitted</strong> a bug</div>
+                                    <div class="activity-time">Yesterday, 1:00 PM</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contacts -->
+                    <div class="card-container">
+                        <div class="card-header">
+                            <h3 class="card-title">Contacts</h3>
+                        </div>
+                        <div class="contacts-grid">
+                            <div class="contact-item">
+                                <div class="contact-avatar">N</div>
+                                <span class="contact-name">Natali Craig</span>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-avatar">D</div>
+                                <span class="contact-name">Drew Cano</span>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-avatar">O</div>
+                                <span class="contact-name">Orlando Diggs</span>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-avatar">A</div>
+                                <span class="contact-name">Andi Lane</span>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-avatar">K</div>
+                                <span class="contact-name">Kate Morrison</span>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-avatar">K</div>
+                                <span class="contact-name">Koray Okumus</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Charts -->
+                <div class="bottom-grid">
+                    <div class="chart-container">
+                        <div class="card-header">
+                            <h3 class="card-title">Traffic by Device</h3>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="deviceChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="card-header">
+                            <h3 class="card-title">Traffic by Location</h3>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="locationChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
         </div>
+    </div>
 
-        <!-- Revenue Chart -->
-        <div class="content-box">
-            <div class="box-title">Total Users</div>
-            <div class="chart-wrapper">
-                <canvas id="userChart"></canvas>
-            </div>
-        </div>
-
-        <!-- Two Column Section -->
-        <div class="two-col-grid">
-            
-            <!-- Traffic by Website -->
-            <div class="content-box">
-                <div class="box-title">Traffic by Website</div>
-                <div style="padding: 12px 0;">
-                    <div style="margin-bottom: 16px;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                            <span style="color: #6b7280; font-size: 14px;">Google</span>
-                            <span style="font-weight: 600; font-size: 14px;">45%</span>
-                        </div>
-                        <div style="width: 100%; height: 6px; background: #e5e7eb; border-radius: 3px;">
-                            <div style="width: 45%; height: 100%; background: #111827; border-radius: 3px;"></div>
-                        </div>
-                    </div>
-                    
-                    <div style="margin-bottom: 16px;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                            <span style="color: #6b7280; font-size: 14px;">YouTube</span>
-                            <span style="font-weight: 600; font-size: 14px;">25%</span>
-                        </div>
-                        <div style="width: 100%; height: 6px; background: #e5e7eb; border-radius: 3px;">
-                            <div style="width: 25%; height: 100%; background: #111827; border-radius: 3px;"></div>
-                        </div>
-                    </div>
-                    
-                    <div style="margin-bottom: 16px;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                            <span style="color: #6b7280; font-size: 14px;">Instagram</span>
-                            <span style="font-weight: 600; font-size: 14px;">15%</span>
-                        </div>
-                        <div style="width: 100%; height: 6px; background: #e5e7eb; border-radius: 3px;">
-                            <div style="width: 15%; height: 100%; background: #111827; border-radius: 3px;"></div>
-                        </div>
-                    </div>
-                    
-                    <div style="margin-bottom: 16px;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                            <span style="color: #6b7280; font-size: 14px;">Pinterest</span>
-                            <span style="font-weight: 600; font-size: 14px;">8%</span>
-                        </div>
-                        <div style="width: 100%; height: 6px; background: #e5e7eb; border-radius: 3px;">
-                            <div style="width: 8%; height: 100%; background: #111827; border-radius: 3px;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Activities -->
-            <div class="content-box">
-                <div class="box-title">Activities</div>
-                <div>
-                    <div class="activity-item">
-                        <div class="activity-avatar">Y</div>
-                        <div>
-                            <div class="activity-text"><strong>You</strong> have a bug that needs...</div>
-                            <div class="activity-time">Just now</div>
-                        </div>
-                    </div>
-                    
-                    <div class="activity-item">
-                        <div class="activity-avatar">N</div>
-                        <div>
-                            <div class="activity-text"><strong>New user</strong> registered</div>
-                            <div class="activity-time">59 minutes ago</div>
-                        </div>
-                    </div>
-                    
-                    <div class="activity-item">
-                        <div class="activity-avatar">A</div>
-                        <div>
-                            <div class="activity-text"><strong>Andi Lane</strong> subscribed to you</div>
-                            <div class="activity-time">Today, 11:59 AM</div>
-                        </div>
-                    </div>
-                    
-                    <div class="activity-item">
-                        <div class="activity-avatar">R</div>
-                        <div>
-                            <div class="activity-text"><strong>Released</strong> a new version</div>
-                            <div class="activity-time">Yesterday, 2:45 PM</div>
-                        </div>
-                    </div>
-                    
-                    <div class="activity-item">
-                        <div class="activity-avatar">S</div>
-                        <div>
-                            <div class="activity-text"><strong>Submitted</strong> a bug</div>
-                            <div class="activity-time">Yesterday, 1:00 PM</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bottom Section -->
-        <div class="two-col-grid">
-            
-            <!-- Traffic by Device -->
-            <div class="content-box">
-                <div class="box-title">Traffic by Device</div>
-                <div class="chart-wrapper" style="height: 250px;">
-                    <canvas id="deviceChart"></canvas>
-                </div>
-            </div>
-
-            <!-- Traffic by Location -->
-            <div class="content-box">
-                <div class="box-title">Traffic by Location</div>
-                <div class="chart-wrapper" style="height: 250px;">
-                    <canvas id="locationChart"></canvas>
-                </div>
-                <div style="margin-top: 20px;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                        <span style="font-size: 14px; color: #6b7280;">United States</span>
-                        <span style="font-weight: 600; font-size: 14px;">38.6%</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                        <span style="font-size: 14px; color: #6b7280;">Canada</span>
-                        <span style="font-weight: 600; font-size: 14px;">22.5%</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                        <span style="font-size: 14px; color: #6b7280;">Mexico</span>
-                        <span style="font-weight: 600; font-size: 14px;">30.8%</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between;">
-                        <span style="font-size: 14px; color: #6b7280;">Other</span>
-                        <span style="font-weight: 600; font-size: 14px;">8.1%</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Contacts Section -->
-        <div class="content-box">
-            <div class="box-title">Contacts</div>
-            <div>
-                <div class="contact-item">
-                    <div class="contact-avatar">N</div>
-                    <span style="font-weight: 500;">Natali Craig</span>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-avatar">D</div>
-                    <span style="font-weight: 500;">Drew Cano</span>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-avatar">O</div>
-                    <span style="font-weight: 500;">Orlando Diggs</span>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-avatar">A</div>
-                    <span style="font-weight: 500;">Andi Lane</span>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-avatar">K</div>
-                    <span style="font-weight: 500;">Kate Morrison</span>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-avatar">K</div>
-                    <span style="font-weight: 500;">Koray Okumus</span>
-                </div>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- jQuery Library -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    
-    <!-- Chart.js Library -->
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     
-    <!-- Custom Scripts -->
-    <script src="script.js"></script>
-    
+    <!-- Theme Toggle Script -->
     <script>
-        // Chart initialization
-        var isDarkMode = $('body').hasClass('dark-mode');
+        // Theme Toggle
+        const themeToggles = document.querySelectorAll('.theme-toggle:not(.menu-toggle)');
+        const body = document.body;
         
+        themeToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                const isDark = body.classList.contains('dark-mode');
+                toggle.textContent = isDark ? '☀️' : '🌙';
+                
+                // Update all theme toggles
+                themeToggles.forEach(t => t.textContent = isDark ? '☀️' : '🌙');
+                
+                // Update charts
+                if (typeof updateChartColors === 'function') {
+                    updateChartColors(isDark);
+                }
+            });
+        });
+        
+        // Menu Toggle (Mobile)
+        const menuToggle = document.querySelector('.menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+        
+        if (menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+            });
+        }
+    </script>
+    
+    <!-- Charts Initialization -->
+    <script>
+        function getChartColors() {
+            const isDark = document.body.classList.contains('dark-mode');
+            return {
+                grid: isDark ? '#2d3748' : '#e5e7eb',
+                text: isDark ? '#9ca3af' : '#6b7280',
+                line: isDark ? '#f9fafb' : '#111827'
+            };
+        }
+
+        const colors = getChartColors();
+
         // User Chart
-        var userCtx = document.getElementById('userChart').getContext('2d');
-        var userChart = new Chart(userCtx, {
+        const userChart = new Chart(document.getElementById('userChart'), {
             type: 'line',
             data: {
                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
                 datasets: [{
-                    label: 'Users',
                     data: [30000, 45000, 35000, 50000, 42000, 55000, 50000],
-                    borderColor: isDarkMode ? '#ffffff' : '#000000',
+                    borderColor: colors.line,
                     backgroundColor: 'transparent',
                     borderWidth: 2,
                     tension: 0.4,
@@ -286,91 +878,111 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false }
-                },
+                plugins: { legend: { display: false } },
                 scales: {
-                    x: {
-                        grid: { color: isDarkMode ? '#374151' : '#e5e7eb' },
-                        ticks: { color: isDarkMode ? '#9ca3af' : '#6b7280' }
+                    x: { 
+                        grid: { color: colors.grid, display: false }, 
+                        ticks: { color: colors.text, font: { size: 11 } },
+                        border: { display: false }
                     },
-                    y: {
-                        grid: { color: isDarkMode ? '#374151' : '#e5e7eb' },
-                        ticks: { color: isDarkMode ? '#9ca3af' : '#6b7280' }
+                    y: { 
+                        grid: { color: colors.grid }, 
+                        ticks: { color: colors.text, font: { size: 11 } },
+                        border: { display: false }
                     }
                 }
             }
         });
-        
+
         // Device Chart
-        var deviceCtx = document.getElementById('deviceChart').getContext('2d');
-        var deviceChart = new Chart(deviceCtx, {
+        const deviceChart = new Chart(document.getElementById('deviceChart'), {
             type: 'bar',
             data: {
-                labels: ['Laptop', 'Mobile', 'Desktop', 'Tablet', 'Watch', 'Other'],
+                labels: ['Laptop', 'Mobile', 'Desktop', 'Tablet', 'Watch'],
                 datasets: [{
-                    data: [30, 35, 25, 28, 20, 25],
-                    backgroundColor: ['#6366f1', '#8b5cf6', '#1f2937', '#60a5fa', '#94a3b8', '#d1d5db'],
-                    borderRadius: 6
+                    data: [30, 35, 25, 28, 20],
+                    backgroundColor: colors.line,
+                    borderRadius: 4,
+                    barThickness: 32
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false }
-                },
+                plugins: { legend: { display: false } },
                 scales: {
-                    x: {
-                        grid: { display: false },
-                        ticks: { color: isDarkMode ? '#9ca3af' : '#6b7280' }
+                    x: { 
+                        grid: { display: false }, 
+                        ticks: { color: colors.text, font: { size: 11 } },
+                        border: { display: false }
                     },
-                    y: {
-                        grid: { color: isDarkMode ? '#374151' : '#e5e7eb' },
-                        ticks: { color: isDarkMode ? '#9ca3af' : '#6b7280' }
+                    y: { 
+                        grid: { color: colors.grid }, 
+                        ticks: { color: colors.text, font: { size: 11 } },
+                        border: { display: false }
                     }
                 }
             }
         });
-        
+
         // Location Chart
-        var locationCtx = document.getElementById('locationChart').getContext('2d');
-        var locationChart = new Chart(locationCtx, {
+        const locationChart = new Chart(document.getElementById('locationChart'), {
             type: 'doughnut',
             data: {
                 labels: ['United States', 'Canada', 'Mexico', 'Other'],
                 datasets: [{
                     data: [38.6, 22.5, 30.8, 8.1],
-                    backgroundColor: ['#6366f1', '#8b5cf6', '#10b981', '#1f2937'],
+                    backgroundColor: ['#111827', '#4f46e5', '#7c3aed', '#e5e7eb'],
                     borderWidth: 0
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false }
-                }
+                plugins: { 
+                    legend: { 
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            color: colors.text,
+                            font: { size: 11 },
+                            padding: 12,
+                            usePointStyle: true
+                        }
+                    }
+                },
+                cutout: '70%'
             }
         });
-        
-        // Update chart colors on theme change
-        function updateChartTheme(dark) {
-            var gridColor = dark ? '#374151' : '#e5e7eb';
-            var textColor = dark ? '#9ca3af' : '#6b7280';
-            var lineColor = dark ? '#ffffff' : '#000000';
+
+        // Update charts on theme change
+        function updateChartColors(isDark) {
+            const colors = getChartColors();
             
-            userChart.data.datasets[0].borderColor = lineColor;
-            userChart.options.scales.x.grid.color = gridColor;
-            userChart.options.scales.y.grid.color = gridColor;
-            userChart.options.scales.x.ticks.color = textColor;
-            userChart.options.scales.y.ticks.color = textColor;
+            [userChart, deviceChart].forEach(chart => {
+                if (chart.options.scales) {
+                    chart.options.scales.x.grid.color = colors.grid;
+                    chart.options.scales.x.ticks.color = colors.text;
+                    if (chart.options.scales.y) {
+                        chart.options.scales.y.grid.color = colors.grid;
+                        chart.options.scales.y.ticks.color = colors.text;
+                    }
+                }
+                chart.update();
+            });
+            
+            userChart.data.datasets[0].borderColor = colors.line;
+            deviceChart.data.datasets[0].backgroundColor = colors.line;
             userChart.update();
-            
-            deviceChart.options.scales.x.ticks.color = textColor;
-            deviceChart.options.scales.y.ticks.color = textColor;
-            deviceChart.options.scales.y.grid.color = gridColor;
             deviceChart.update();
+            
+            if (locationChart.options.plugins.legend) {
+                locationChart.options.plugins.legend.labels.color = colors.text;
+                locationChart.data.datasets[0].backgroundColor = isDark ? 
+                    ['#f9fafb', '#4f46e5', '#7c3aed', '#2d3748'] : 
+                    ['#111827', '#4f46e5', '#7c3aed', '#e5e7eb'];
+                locationChart.update();
+            }
         }
     </script>
 

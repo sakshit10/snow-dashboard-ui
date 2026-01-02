@@ -1,154 +1,983 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Order List | Snow UI Kit</title>
-  <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order List | Snow UI Kit</title>
+    <style>
+/* ============ CSS VARIABLES ============ */
+:root {
+    --primary: #4f46e5;
+    --primary-dark: #4338ca;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --info: #3b82f6;
+    --secondary: #7c3aed;
+    
+    --bg: #f9fafb;
+    --card: #ffffff;
+    --text: #111827;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --hover: #f3f4f6;
+    
+    --sidebar-width: 220px;
+    --header-height: 64px;
+    --radius: 10px;
+}
+
+body.dark-mode {
+    --bg: #0f1419;
+    --card: #1a1f2e;
+    --text: #f9fafb;
+    --muted: #9ca3af;
+    --border: #2d3748;
+    --hover: #2d3748;
+}
+
+/* ============ RESET & BASE ============ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', Arial, sans-serif;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* ============ MAIN LAYOUT ============ */
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+/* ============ SIDEBAR ============ */
+.sidebar {
+    width: var(--sidebar-width);
+    min-width: var(--sidebar-width);
+    height: 100vh;
+    background: var(--card);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    padding: 20px 20px 16px 20px;
+}
+
+.nav-section {
+    padding: 16px 12px;
+}
+
+.nav-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    padding: 0 8px;
+}
+
+.nav-items {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.15s ease;
+}
+
+.nav-link:hover {
+    background: var(--hover);
+}
+
+.nav-link.active {
+    background: var(--primary);
+    color: white;
+}
+
+/* ============ MAIN CONTENT AREA ============ */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    min-width: 0;
+}
+
+/* ============ HEADER ============ */
+.header {
+    height: var(--header-height);
+    min-height: var(--header-height);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    z-index: 10;
+    flex-shrink: 0;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.page-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.search-box {
+    position: relative;
+    width: 240px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 8px 12px 8px 36px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 13px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.search-input::placeholder {
+    color: var(--muted);
+}
+
+.search-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.theme-toggle {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+    background: var(--hover);
+}
+
+/* ============ DASHBOARD CONTENT ============ */
+.dashboard-content {
+    flex: 1;
+    padding: 20px 24px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: var(--bg);
+    width: 100%;
+    max-width: 100%;
+}
+
+.dashboard-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.dashboard-content::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+/* ============ TABLE CONTROLS ============ */
+.table-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 12px;
+}
+
+.table-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn {
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn:hover {
+    background: var(--hover);
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+/* ============ ORDER TABLE ============ */
+.card-container {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.orders-table thead {
+    background: var(--bg);
+}
+
+.orders-table th {
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border);
+}
+
+.orders-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text);
+}
+
+.orders-table tbody tr {
+    transition: background 0.2s ease;
+    cursor: pointer;
+}
+
+.orders-table tbody tr:hover {
+    background: var(--hover);
+}
+
+.orders-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ============ TABLE ELEMENTS ============ */
+.checkbox {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+.user-name {
+    font-weight: 500;
+}
+
+.order-id {
+    font-family: 'Courier New', monospace;
+    color: var(--text);
+    font-size: 12px;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.status-progress {
+    background: rgba(79, 70, 229, 0.1);
+    color: var(--primary);
+}
+
+.status-progress .status-dot {
+    background: var(--primary);
+}
+
+.status-complete {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+}
+
+.status-complete .status-dot {
+    background: var(--success);
+}
+
+.status-pending {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--warning);
+}
+
+.status-pending .status-dot {
+    background: var(--warning);
+}
+
+.status-approved {
+    background: rgba(124, 58, 237, 0.1);
+    color: var(--secondary);
+}
+
+.status-approved .status-dot {
+    background: var(--secondary);
+}
+
+.status-rejected {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+}
+
+.status-rejected .status-dot {
+    background: var(--danger);
+}
+
+.date-cell {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text);
+}
+
+.actions-cell {
+    display: flex;
+    gap: 8px;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 16px;
+    padding: 4px;
+    transition: color 0.2s ease;
+}
+
+.action-btn:hover {
+    color: var(--text);
+}
+
+/* ============ PAGINATION ============ */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 16px 0;
+}
+
+.page-btn {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    min-width: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-btn:hover {
+    background: var(--hover);
+}
+
+.page-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* ============ RESPONSIVE ============ */
+.menu-toggle {
+    display: none;
+}
+
+@media (max-width: 1024px) {
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        transform: translateX(-100%);
+        z-index: 100;
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    
+    .menu-toggle {
+        display: flex;
+    }
+    
+    .table-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-box {
+        width: 100%;
+    }
+    
+    .orders-table {
+        font-size: 12px;
+    }
+    
+    .orders-table th,
+    .orders-table td {
+        padding: 10px 12px;
+    }
+}
+    </style>
 </head>
 <body>
 
-<!-- Sidebar -->
-<aside class="sidebar">
-  <h2>Kit</h2>
-  <nav>
-    <a href="index.html">Default</a>
-    <a href="ecommerce.html">eCommerce</a>
-    <a href="orders.html" class="active">Order List</a>
-  </nav>
-</aside>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">Kit</div>
+            
+            <div class="nav-section">
+                <div class="nav-label">Favorites</div>
+                <div class="nav-items">
+                    <a href="#" class="nav-link">Overview</a>
+                    <a href="#" class="nav-link">Projects</a>
+                </div>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-label">Dashboards</div>
+                <div class="nav-items">
+                    <a href="#" class="nav-link">Default</a>
+                    <a href="#" class="nav-link">eCommerce</a>
+                    <a href="#" class="nav-link">Projects</a>
+                    <a href="#" class="nav-link">Online Courses</a>
+                </div>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-label">Pages</div>
+                <div class="nav-items">
+                    <a href="#" class="nav-link">User Profile</a>
+                    <a href="#" class="nav-link active">Order List</a>
+                    <a href="#" class="nav-link">Account</a>
+                    <a href="#" class="nav-link">Corporate</a>
+                    <a href="#" class="nav-link">Blog</a>
+                    <a href="#" class="nav-link">Social</a>
+                </div>
+            </div>
+        </aside>
 
-<!-- Header -->
-<header class="header">
-  <h3>Order List</h3>
-  <button id="theme-toggle">🌙</button>
-</header>
+        <!-- Main Content -->
+        <div class="main-content">
+            
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="menu-toggle theme-toggle" style="margin-right: 12px;">☰</button>
+                    <h1 class="page-title">Order List</h1>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" class="search-input" placeholder="Search...">
+                    </div>
+                    <button class="theme-toggle">🌙</button>
+                </div>
+            </header>
 
-<!-- Main Content -->
-<main class="main">
-  <div class="box">
-    <h4>All Orders</h4>
-    <table>
-      <thead>
-        <tr>
-          <th><input type="checkbox"></th>
-          <th>Order ID</th>
-          <th>Customer</th>
-          <th>Project</th>
-          <th>Address</th>
-          <th>Date</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><strong>#CM9801</strong></td>
-          <td>Natali Craig</td>
-          <td>Landing Page</td>
-          <td>Meadow Lane Oakland</td>
-          <td>Just now</td>
-          <td><span class="status blue">In Progress</span></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><strong>#CM9802</strong></td>
-          <td>Kate Morrison</td>
-          <td>CRM Admin pages</td>
-          <td>Larry San Francisco</td>
-          <td>A minute ago</td>
-          <td><span class="status green">Complete</span></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><strong>#CM9803</strong></td>
-          <td>Drew Cano</td>
-          <td>Client Project</td>
-          <td>Bagwell Avenue Ocala</td>
-          <td>1 hour ago</td>
-          <td><span class="status yellow">Pending</span></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><strong>#CM9804</strong></td>
-          <td>Orlando Diggs</td>
-          <td>Admin Dashboard</td>
-          <td>Washburn Baton Rouge</td>
-          <td>Yesterday</td>
-          <td><span class="status purple">Approved</span></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><strong>#CM9805</strong></td>
-          <td>Andi Lane</td>
-          <td>App Landing Page</td>
-          <td>Nest Lane Olivette</td>
-          <td>Feb 2, 2023</td>
-          <td><span class="status red">Rejected</span></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><strong>#CM9806</strong></td>
-          <td>Koray Okumus</td>
-          <td>Portfolio Website</td>
-          <td>Sunset Boulevard LA</td>
-          <td>Feb 1, 2023</td>
-          <td><span class="status green">Complete</span></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><strong>#CM9807</strong></td>
-          <td>Emily Johnson</td>
-          <td>Mobile App UI</td>
-          <td>Park Avenue NYC</td>
-          <td>Jan 31, 2023</td>
-          <td><span class="status blue">In Progress</span></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><strong>#CM9808</strong></td>
-          <td>Michael Chen</td>
-          <td>Dashboard Analytics</td>
-          <td>Market Street SF</td>
-          <td>Jan 30, 2023</td>
-          <td><span class="status yellow">Pending</span></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><strong>#CM9809</strong></td>
-          <td>Sarah Williams</td>
-          <td>E-commerce Site</td>
-          <td>Main Street Boston</td>
-          <td>Jan 29, 2023</td>
-          <td><span class="status purple">Approved</span></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><strong>#CM9810</strong></td>
-          <td>David Brown</td>
-          <td>Blog Platform</td>
-          <td>High Street London</td>
-          <td>Jan 28, 2023</td>
-          <td><span class="status green">Complete</span></td>
-        </tr>
-      </tbody>
-    </table>
+            <!-- Dashboard Content -->
+            <main class="dashboard-content">
+                
+                <!-- Table Controls -->
+                <div class="table-controls">
+                    <div class="table-actions">
+                        <button class="btn">+ Add</button>
+                        <button class="btn">⚙ Filter</button>
+                        <button class="btn">↑ Sort</button>
+                    </div>
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" class="search-input" placeholder="Search orders...">
+                    </div>
+                </div>
 
-    <!-- Pagination -->
-    <div style="display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 24px;">
-      <button style="padding: 8px 12px; border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 6px; cursor: pointer;">←</button>
-      <button style="padding: 8px 16px; border: none; background: var(--text); color: var(--card); border-radius: 6px; cursor: pointer; font-weight: 600;">1</button>
-      <button style="padding: 8px 16px; border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 6px; cursor: pointer;">2</button>
-      <button style="padding: 8px 16px; border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 6px; cursor: pointer;">3</button>
-      <button style="padding: 8px 16px; border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 6px; cursor: pointer;">4</button>
-      <button style="padding: 8px 16px; border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 6px; cursor: pointer;">5</button>
-      <button style="padding: 8px 12px; border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 6px; cursor: pointer;">→</button>
+                <!-- Orders Table -->
+                <div class="card-container">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 40px;"><input type="checkbox" class="checkbox"></th>
+                                <th>Order ID</th>
+                                <th>User</th>
+                                <th>Project</th>
+                                <th>Address</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th style="width: 80px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox" class="checkbox"></td>
+                                <td><span class="order-id">#CM9801</span></td>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar">N</div>
+                                        <span class="user-name">Natali Craig</span>
+                                    </div>
+                                </td>
+                                <td>Landing Page</td>
+                                <td>Meadow Lane Oakland</td>
+                                <td>
+                                    <div class="date-cell">
+                                        <span>📅</span>
+                                        <span>Just now</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-progress">
+                                        <span class="status-dot"></span>
+                                        In Progress
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="actions-cell">
+                                        <button class="action-btn">⋮</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td><input type="checkbox" class="checkbox"></td>
+                                <td><span class="order-id">#CM9802</span></td>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar">K</div>
+                                        <span class="user-name">Kate Morrison</span>
+                                    </div>
+                                </td>
+                                <td>CRM Admin pages</td>
+                                <td>Larry San Francisco</td>
+                                <td>
+                                    <div class="date-cell">
+                                        <span>📅</span>
+                                        <span>A minute ago</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-complete">
+                                        <span class="status-dot"></span>
+                                        Complete
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="actions-cell">
+                                        <button class="action-btn">⋮</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td><input type="checkbox" class="checkbox"></td>
+                                <td><span class="order-id">#CM9803</span></td>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar">D</div>
+                                        <span class="user-name">Drew Cano</span>
+                                    </div>
+                                </td>
+                                <td>Client Project</td>
+                                <td>Bagwell Avenue Ocala</td>
+                                <td>
+                                    <div class="date-cell">
+                                        <span>📅</span>
+                                        <span>1 hour ago</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-pending">
+                                        <span class="status-dot"></span>
+                                        Pending
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="actions-cell">
+                                        <button class="action-btn">⋮</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td><input type="checkbox" class="checkbox"></td>
+                                <td><span class="order-id">#CM9804</span></td>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar">O</div>
+                                        <span class="user-name">Orlando Diggs</span>
+                                    </div>
+                                </td>
+                                <td>Admin Dashboard</td>
+                                <td>Washburn Baton Rouge</td>
+                                <td>
+                                    <div class="date-cell">
+                                        <span>📅</span>
+                                        <span>Yesterday</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-approved">
+                                        <span class="status-dot"></span>
+                                        Approved
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="actions-cell">
+                                        <button class="action-btn">⋮</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td><input type="checkbox" class="checkbox"></td>
+                                <td><span class="order-id">#CM9805</span></td>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar">A</div>
+                                        <span class="user-name">Andi Lane</span>
+                                    </div>
+                                </td>
+                                <td>App Landing Page</td>
+                                <td>Nest Lane Olivette</td>
+                                <td>
+                                    <div class="date-cell">
+                                        <span>📅</span>
+                                        <span>Feb 2, 2023</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-rejected">
+                                        <span class="status-dot"></span>
+                                        Rejected
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="actions-cell">
+                                        <button class="action-btn">⋮</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td><input type="checkbox" class="checkbox" checked></td>
+                                <td><span class="order-id">#CM9801</span></td>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar">N</div>
+                                        <span class="user-name">Natali Craig</span>
+                                    </div>
+                                </td>
+                                <td>Landing Page</td>
+                                <td>Meadow Lane Oakland</td>
+                                <td>
+                                    <div class="date-cell">
+                                        <span>📅</span>
+                                        <span>Just now</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-progress">
+                                        <span class="status-dot"></span>
+                                        In Progress
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="actions-cell">
+                                        <button class="action-btn">⋮</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td><input type="checkbox" class="checkbox"></td>
+                                <td><span class="order-id">#CM9802</span></td>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar">K</div>
+                                        <span class="user-name">Kate Morrison</span>
+                                    </div>
+                                </td>
+                                <td>CRM Admin pages</td>
+                                <td>Larry San Francisco</td>
+                                <td>
+                                    <div class="date-cell">
+                                        <span>📅</span>
+                                        <span>A minute ago</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-complete">
+                                        <span class="status-dot"></span>
+                                        Complete
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="actions-cell">
+                                        <button class="action-btn">⋮</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td><input type="checkbox" class="checkbox"></td>
+                                <td><span class="order-id">#CM9803</span></td>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar">D</div>
+                                        <span class="user-name">Drew Cano</span>
+                                    </div>
+                                </td>
+                                <td>Client Project</td>
+                                <td>Bagwell Avenue Ocala</td>
+                                <td>
+                                    <div class="date-cell">
+                                        <span>📅</span>
+                                        <span>1 hour ago</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-pending">
+                                        <span class="status-dot"></span>
+                                        Pending
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="actions-cell">
+                                        <button class="action-btn">⋮</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td><input type="checkbox" class="checkbox"></td>
+                                <td><span class="order-id">#CM9804</span></td>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar">O</div>
+                                        <span class="user-name">Orlando Diggs</span>
+                                    </div>
+                                </td>
+                                <td>Admin Dashboard</td>
+                                <td>Washburn Baton Rouge</td>
+                                <td>
+                                    <div class="date-cell">
+                                        <span>📅</span>
+                                        <span>Yesterday</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-approved">
+                                        <span class="status-dot"></span>
+                                        Approved
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="actions-cell">
+                                        <button class="action-btn">⋮</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td><input type="checkbox" class="checkbox"></td>
+                                <td><span class="order-id">#CM9805</span></td>
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar">A</div>
+                                        <span class="user-name">Andi Lane</span>
+                                    </div>
+                                </td>
+                                <td>App Landing Page</td>
+                                <td>Nest Lane Olivette</td>
+                                <td>
+                                    <div class="date-cell">
+                                        <span>📅</span>
+                                        <span>Feb 2, 2023</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-rejected">
+                                        <span class="status-dot"></span>
+                                        Rejected
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="actions-cell">
+                                        <button class="action-btn">⋮</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <button class="page-btn">←</button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">4</button>
+                    <button class="page-btn">5</button>
+                    <button class="page-btn">→</button>
+                </div>
+
+            </main>
+        </div>
     </div>
-  </div>
-</main>
 
-<!-- Theme Toggle Script -->
-<script src="../theme/theme.js"></script>
-
-</body>
-</html>
+    <!-- Theme Toggle Script -->
+    <script>
+        // Theme Toggle
+        const themeToggles = document.querySelectorAll('.theme-toggle:not(.menu-toggle)');
+        const body = document.body;
+        
+        themeToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                const isDark = body.classList.contains('dark-mode');
+                toggle.textContent = isDark ? '☀️' : '🌙';
+                
+                // Update all theme toggles
+                themeToggles.forEach(t => t.textContent = isDark ? '☀️' : '🌙');
+            });
+        });
+        
+        // Menu Toggle (Mobile)
+        const menuToggle = document.querySelector('.menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+        
+        if (menu
