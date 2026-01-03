@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order List | Snow UI Kit</title>
     <style>
-/* ============ CSS VARIABLES ============ */
 :root {
     --primary: #4f46e5;
     --primary-dark: #4338ca;
@@ -14,14 +13,12 @@
     --warning: #f59e0b;
     --info: #3b82f6;
     --secondary: #7c3aed;
-    
     --bg: #f9fafb;
     --card: #ffffff;
     --text: #111827;
     --muted: #6b7280;
     --border: #e5e7eb;
     --hover: #f3f4f6;
-    
     --sidebar-width: 220px;
     --header-height: 64px;
     --radius: 10px;
@@ -36,7 +33,6 @@ body.dark-mode {
     --hover: #2d3748;
 }
 
-/* ============ RESET & BASE ============ */
 * {
     margin: 0;
     padding: 0;
@@ -57,7 +53,6 @@ body {
     transition: background 0.2s ease, color 0.2s ease;
 }
 
-/* ============ MAIN LAYOUT ============ */
 .dashboard-container {
     display: flex;
     height: 100vh;
@@ -68,7 +63,6 @@ body {
     overflow: hidden;
 }
 
-/* ============ SIDEBAR ============ */
 .sidebar {
     width: var(--sidebar-width);
     min-width: var(--sidebar-width);
@@ -138,7 +132,6 @@ body {
     color: white;
 }
 
-/* ============ MAIN CONTENT AREA ============ */
 .main-content {
     flex: 1;
     display: flex;
@@ -148,7 +141,6 @@ body {
     min-width: 0;
 }
 
-/* ============ HEADER ============ */
 .header {
     height: var(--header-height);
     min-height: var(--header-height);
@@ -234,7 +226,6 @@ body {
     background: var(--hover);
 }
 
-/* ============ DASHBOARD CONTENT ============ */
 .dashboard-content {
     flex: 1;
     padding: 20px 24px;
@@ -254,7 +245,6 @@ body {
     border-radius: 3px;
 }
 
-/* ============ TABLE CONTROLS ============ */
 .table-controls {
     display: flex;
     justify-content: space-between;
@@ -287,17 +277,6 @@ body {
     background: var(--hover);
 }
 
-.btn-primary {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-}
-
-.btn-primary:hover {
-    background: var(--primary-dark);
-}
-
-/* ============ ORDER TABLE ============ */
 .card-container {
     background: var(--card);
     border: 1px solid var(--border);
@@ -345,7 +324,6 @@ body {
     border-bottom: none;
 }
 
-/* ============ TABLE ELEMENTS ============ */
 .checkbox {
     width: 16px;
     height: 16px;
@@ -471,7 +449,6 @@ body {
     color: var(--text);
 }
 
-/* ============ PAGINATION ============ */
 .pagination {
     display: flex;
     justify-content: center;
@@ -507,7 +484,6 @@ body {
     border-color: var(--primary);
 }
 
-/* ============ RESPONSIVE ============ */
 .menu-toggle {
     display: none;
 }
@@ -544,19 +520,14 @@ body {
         font-size: 12px;
     }
     
-    .orders-table th,
-    .orders-table td {
+    .orders-table th, .orders-table td {
         padding: 10px 12px;
     }
 }
     </style>
 </head>
 <body>
-
-    <!-- Dashboard Container -->
     <div class="dashboard-container">
-        
-        <!-- Sidebar -->
         <aside class="sidebar">
             <div class="logo">Kit</div>
             
@@ -571,8 +542,8 @@ body {
             <div class="nav-section">
                 <div class="nav-label">Dashboards</div>
                 <div class="nav-items">
-                    <a href="#" class="nav-link">Default</a>
-                    <a href="#" class="nav-link">eCommerce</a>
+                    <a href="index.html" class="nav-link">Default</a>
+                    <a href="ecommerce.html" class="nav-link">eCommerce</a>
                     <a href="#" class="nav-link">Projects</a>
                     <a href="#" class="nav-link">Online Courses</a>
                 </div>
@@ -582,7 +553,7 @@ body {
                 <div class="nav-label">Pages</div>
                 <div class="nav-items">
                     <a href="#" class="nav-link">User Profile</a>
-                    <a href="#" class="nav-link active">Order List</a>
+                    <a href="orders.html" class="nav-link active">Order List</a>
                     <a href="#" class="nav-link">Account</a>
                     <a href="#" class="nav-link">Corporate</a>
                     <a href="#" class="nav-link">Blog</a>
@@ -591,10 +562,7 @@ body {
             </div>
         </aside>
 
-        <!-- Main Content -->
         <div class="main-content">
-            
-            <!-- Header -->
             <header class="header">
                 <div class="header-left">
                     <button class="menu-toggle theme-toggle" style="margin-right: 12px;">☰</button>
@@ -609,10 +577,7 @@ body {
                 </div>
             </header>
 
-            <!-- Dashboard Content -->
             <main class="dashboard-content">
-                
-                <!-- Table Controls -->
                 <div class="table-controls">
                     <div class="table-actions">
                         <button class="btn">+ Add</button>
@@ -625,7 +590,6 @@ body {
                     </div>
                 </div>
 
-                <!-- Orders Table -->
                 <div class="card-container">
                     <table class="orders-table">
                         <thead>
@@ -670,7 +634,6 @@ body {
                                     </div>
                                 </td>
                             </tr>
-                            
                             <tr>
                                 <td><input type="checkbox" class="checkbox"></td>
                                 <td><span class="order-id">#CM9802</span></td>
@@ -700,7 +663,6 @@ body {
                                     </div>
                                 </td>
                             </tr>
-                            
                             <tr>
                                 <td><input type="checkbox" class="checkbox"></td>
                                 <td><span class="order-id">#CM9803</span></td>
@@ -730,7 +692,6 @@ body {
                                     </div>
                                 </td>
                             </tr>
-                            
                             <tr>
                                 <td><input type="checkbox" class="checkbox"></td>
                                 <td><span class="order-id">#CM9804</span></td>
@@ -760,157 +721,6 @@ body {
                                     </div>
                                 </td>
                             </tr>
-                            
-                            <tr>
-                                <td><input type="checkbox" class="checkbox"></td>
-                                <td><span class="order-id">#CM9805</span></td>
-                                <td>
-                                    <div class="user-info">
-                                        <div class="user-avatar">A</div>
-                                        <span class="user-name">Andi Lane</span>
-                                    </div>
-                                </td>
-                                <td>App Landing Page</td>
-                                <td>Nest Lane Olivette</td>
-                                <td>
-                                    <div class="date-cell">
-                                        <span>📅</span>
-                                        <span>Feb 2, 2023</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="status-badge status-rejected">
-                                        <span class="status-dot"></span>
-                                        Rejected
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="actions-cell">
-                                        <button class="action-btn">⋮</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                <td><input type="checkbox" class="checkbox" checked></td>
-                                <td><span class="order-id">#CM9801</span></td>
-                                <td>
-                                    <div class="user-info">
-                                        <div class="user-avatar">N</div>
-                                        <span class="user-name">Natali Craig</span>
-                                    </div>
-                                </td>
-                                <td>Landing Page</td>
-                                <td>Meadow Lane Oakland</td>
-                                <td>
-                                    <div class="date-cell">
-                                        <span>📅</span>
-                                        <span>Just now</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="status-badge status-progress">
-                                        <span class="status-dot"></span>
-                                        In Progress
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="actions-cell">
-                                        <button class="action-btn">⋮</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                <td><input type="checkbox" class="checkbox"></td>
-                                <td><span class="order-id">#CM9802</span></td>
-                                <td>
-                                    <div class="user-info">
-                                        <div class="user-avatar">K</div>
-                                        <span class="user-name">Kate Morrison</span>
-                                    </div>
-                                </td>
-                                <td>CRM Admin pages</td>
-                                <td>Larry San Francisco</td>
-                                <td>
-                                    <div class="date-cell">
-                                        <span>📅</span>
-                                        <span>A minute ago</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="status-badge status-complete">
-                                        <span class="status-dot"></span>
-                                        Complete
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="actions-cell">
-                                        <button class="action-btn">⋮</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                <td><input type="checkbox" class="checkbox"></td>
-                                <td><span class="order-id">#CM9803</span></td>
-                                <td>
-                                    <div class="user-info">
-                                        <div class="user-avatar">D</div>
-                                        <span class="user-name">Drew Cano</span>
-                                    </div>
-                                </td>
-                                <td>Client Project</td>
-                                <td>Bagwell Avenue Ocala</td>
-                                <td>
-                                    <div class="date-cell">
-                                        <span>📅</span>
-                                        <span>1 hour ago</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="status-badge status-pending">
-                                        <span class="status-dot"></span>
-                                        Pending
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="actions-cell">
-                                        <button class="action-btn">⋮</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                <td><input type="checkbox" class="checkbox"></td>
-                                <td><span class="order-id">#CM9804</span></td>
-                                <td>
-                                    <div class="user-info">
-                                        <div class="user-avatar">O</div>
-                                        <span class="user-name">Orlando Diggs</span>
-                                    </div>
-                                </td>
-                                <td>Admin Dashboard</td>
-                                <td>Washburn Baton Rouge</td>
-                                <td>
-                                    <div class="date-cell">
-                                        <span>📅</span>
-                                        <span>Yesterday</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="status-badge status-approved">
-                                        <span class="status-dot"></span>
-                                        Approved
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="actions-cell">
-                                        <button class="action-btn">⋮</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            
                             <tr>
                                 <td><input type="checkbox" class="checkbox"></td>
                                 <td><span class="order-id">#CM9805</span></td>
@@ -944,7 +754,6 @@ body {
                     </table>
                 </div>
 
-                <!-- Pagination -->
                 <div class="pagination">
                     <button class="page-btn">←</button>
                     <button class="page-btn active">1</button>
@@ -954,14 +763,11 @@ body {
                     <button class="page-btn">5</button>
                     <button class="page-btn">→</button>
                 </div>
-
             </main>
         </div>
     </div>
 
-    <!-- Theme Toggle Script -->
     <script>
-        // Theme Toggle
         const themeToggles = document.querySelectorAll('.theme-toggle:not(.menu-toggle)');
         const body = document.body;
         
@@ -970,14 +776,18 @@ body {
                 body.classList.toggle('dark-mode');
                 const isDark = body.classList.contains('dark-mode');
                 toggle.textContent = isDark ? '☀️' : '🌙';
-                
-                // Update all theme toggles
                 themeToggles.forEach(t => t.textContent = isDark ? '☀️' : '🌙');
             });
         });
         
-        // Menu Toggle (Mobile)
         const menuToggle = document.querySelector('.menu-toggle');
         const sidebar = document.querySelector('.sidebar');
         
-        if (menu
+        if (menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>
